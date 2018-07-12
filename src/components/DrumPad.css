@@ -1,0 +1,15 @@
+.DrumPad {
+    width: 90px;
+    height: 90px;
+    background: #a0ced6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 36px;
+    cursor: pointer;
+}
+
+.DrumPad:hover {
+    background: #82b0b8;
+}

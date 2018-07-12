@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    height: 80px;
+}
+
+.App-header {
+    background-color: #a0ced6;
+    padding: 20px;
+    color: white;
+}
+
+@media screen and (max-width: 320px) {
+    .App-logo {
+        height: 40px;
+    }
+    .App-header h1 {
+        margin-bottom: 0;
+        font-size: 24px;
+    }
+}
