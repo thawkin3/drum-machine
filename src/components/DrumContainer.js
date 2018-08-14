@@ -39,21 +39,26 @@ class DrumContainer extends Component {
 
         this.state = {
             currentInstrument: '',
+            instrumentsBeingPressed: [],
         };
 
         this.playDrumSound = this.playDrumSound.bind(this);
         this.clickHandlerToPlayDrumSound = this.clickHandlerToPlayDrumSound.bind(this);
+        this.makeSoundAvailableToPlay = this.makeSoundAvailableToPlay.bind(this);
     }
 
     playDrumSound(e) {
         if (playableKeys.indexOf(e.key) !== -1) {
             const audioElement = document.getElementById(`audio${e.key.toUpperCase()}`);
             if (audioElement) {
-                audioElement.currentTime = 0;
-                audioElement.play();
-                this.setState({
-                    currentInstrument: instruments[e.key.toLowerCase()].instrumentName,
-                });
+                if (this.state.instrumentsBeingPressed.indexOf(e.key.toLowerCase()) === -1) {
+                    audioElement.currentTime = 0;
+                    audioElement.play();
+                    this.setState(prevState => ({
+                        currentInstrument: instruments[e.key.toLowerCase()].instrumentName,
+                        instrumentsBeingPressed: [prevState.instrumentsBeingPressed, e.key.toLowerCase()],
+                    }));
+                }
             }
         }
     }
@@ -71,12 +76,22 @@ class DrumContainer extends Component {
         }
     }
 
+    makeSoundAvailableToPlay(e) {
+        if (playableKeys.indexOf(e.key) !== -1) {
+            this.setState(prevState => ({
+                instrumentsBeingPressed: [prevState.instrumentsBeingPressed.filter(currentKey => currentKey !== e.key)],
+            }));
+        }
+    }
+
     componentDidMount() {
-        document.addEventListener('keypress', this.playDrumSound);
+        document.addEventListener('keydown', this.playDrumSound);
+        document.addEventListener('keyup', this.makeSoundAvailableToPlay);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('keypress', this.playDrumSound);
+        document.removeEventListener('keydown', this.playDrumSound);
+        document.removeEventListener('keyup', this.makeSoundAvailableToPlay);
     }
 
     render() {
