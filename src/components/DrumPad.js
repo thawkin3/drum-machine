@@ -4,13 +4,13 @@ import './DrumPad.css';
 const DrumPad = ({ keyName, audioClip, clickHandlerToPlayDrumSound }) => {
     return (
         <Fragment>
-            <button
+            <div
                 className="DrumPad"
                 id={keyName}
                 onClick={() => clickHandlerToPlayDrumSound(keyName)}
             >
                 {keyName}
-            </button>
+            </div>
             <audio
                 src={audioClip}
                 id={`audio${keyName}`}
