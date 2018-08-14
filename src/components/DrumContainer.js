@@ -48,7 +48,7 @@ class DrumContainer extends Component {
     }
 
     playDrumSound(e) {
-        if (playableKeys.indexOf(e.key) !== -1) {
+        if (playableKeys.indexOf(e.key.toLowerCase()) !== -1) {
             const audioElement = document.getElementById(`audio${e.key.toUpperCase()}`);
             if (audioElement) {
                 if (this.state.instrumentsBeingPressed.indexOf(e.key.toLowerCase()) === -1) {
@@ -64,7 +64,7 @@ class DrumContainer extends Component {
     }
 
     clickHandlerToPlayDrumSound(key) {
-        if (playableKeys.indexOf(key) !== -1) {
+        if (playableKeys.indexOf(key.toLowerCase()) !== -1) {
             const audioElement = document.getElementById(`audio${key.toUpperCase()}`);
             if (audioElement) {
                 audioElement.currentTime = 0;
@@ -77,9 +77,9 @@ class DrumContainer extends Component {
     }
 
     makeSoundAvailableToPlay(e) {
-        if (playableKeys.indexOf(e.key) !== -1) {
+        if (playableKeys.indexOf(e.key.toLowerCase()) !== -1) {
             this.setState(prevState => ({
-                instrumentsBeingPressed: [prevState.instrumentsBeingPressed.filter(currentKey => currentKey !== e.key)],
+                instrumentsBeingPressed: [prevState.instrumentsBeingPressed.filter(currentKey => currentKey !== e.key.toLowerCase())],
             }));
         }
     }
